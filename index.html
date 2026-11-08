@@ -2,19 +2,19 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#11151b"><title>손끝 코드 — Chord Wheel</title>
+<meta name="theme-color" content="#11151b"><link rel="manifest" href="manifest.webmanifest"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="손끝 코드"><link rel="icon" href="icon-192.svg" type="image/svg+xml"><title>손끝 코드 — Chord Wheel</title>
 <style>
 :root{--cyan:#58d9ff;--white:#f5f7fa;--muted:#b9c3ce}
 *{box-sizing:border-box}body{margin:0;background:#0d1117;color:var(--white);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-.app{max-width:780px;margin:auto;min-height:100svh;padding:14px 14px 24px}
+.app{max-width:1180px;margin:auto;min-height:100svh;padding:14px 18px 28px}
 header{display:flex;justify-content:space-between;align-items:center;padding:8px 4px 14px}
 .brand{font-size:12px;letter-spacing:.22em;color:var(--cyan);font-weight:800}.sub{font-size:11px;color:var(--muted);margin-top:4px}
 .badge{border:1px solid #ffffff30;border-radius:20px;padding:7px 10px;font-size:11px;color:#dce5ee}
-.stage{position:relative;width:100%;aspect-ratio:4/5;max-height:760px;overflow:hidden;border-radius:24px;background:linear-gradient(145deg,#34404b,#111923 65%,#1e2934);border:1px solid #ffffff20;isolation:isolate}
+.stage{position:relative;width:100%;aspect-ratio:16/9;min-height:430px;max-height:760px;overflow:hidden;border-radius:24px;background:linear-gradient(145deg,#34404b,#111923 65%,#1e2934);border:1px solid #ffffff20;isolation:isolate}
 #video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scaleX(-1);opacity:.82;display:none}
 .shade{position:absolute;inset:0;background:linear-gradient(180deg,#09111b35,#09111b10 45%,#09111b88);pointer-events:none}
-.camera-hint{position:absolute;top:18px;left:18px;right:18px;text-align:center;font-size:12px;color:#e9f3fa;text-shadow:0 1px 8px #000}
-.wheel-area{position:absolute;left:50%;top:48%;width:min(76vw,440px);height:min(76vw,440px);max-width:68%;max-height:58%;transform:translate(-50%,-50%)}
+.camera-hint{position:absolute;top:18px;left:18px;right:50%;text-align:center;font-size:12px;color:#e9f3fa;text-shadow:0 1px 8px #000}
+.wheel-area{position:absolute;left:74%;top:50%;width:min(48vw,560px);height:min(48vw,560px);max-width:49%;max-height:94%;transform:translate(-50%,-50%)}
 #wheel{width:100%;height:100%;overflow:visible;touch-action:manipulation}
 .segment{fill:#15233055;stroke:#d7f3ff55;stroke-width:1.2;cursor:pointer;transition:fill .12s}
 .segment.active{fill:#36cfff78;stroke:#8deaff;stroke-width:2}
@@ -22,7 +22,7 @@ header{display:flex;justify-content:space-between;align-items:center;padding:8px
 .chord-label.active{fill:#fff;font-size:20px;font-weight:800}
 .center{fill:#0c1721;stroke:#aeeeff99;stroke-width:1.5;cursor:pointer}
 .center-text{fill:#eafaff;text-anchor:middle;dominant-baseline:middle;font-size:10px;letter-spacing:1px;pointer-events:none}
-.song{position:absolute;bottom:22px;left:16px;right:16px;text-align:center;font-size:clamp(20px,5vw,30px);font-weight:800;color:#ffe15c;text-shadow:0 2px 12px #000}
+.song{position:absolute;bottom:22px;left:18px;right:52%;text-align:center;font-size:clamp(20px,5vw,30px);font-weight:800;color:#ffe15c;text-shadow:0 2px 12px #000}
 .song small{display:block;font-size:10px;letter-spacing:.16em;color:#fff;margin-bottom:7px}
 .controls{display:flex;gap:9px;flex-wrap:wrap;margin-top:13px}
 button,select{border:1px solid #34414e;border-radius:14px;background:#19232e;color:#eef5fb;padding:12px 14px;font-size:13px}
@@ -34,7 +34,9 @@ button:disabled{opacity:.45}
 .options{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px;color:#bac5d0;font-size:12px}
 select{padding:9px 11px}
 .help{font-size:12px;line-height:1.65;color:#9eacb9;margin:13px 4px 0}
-@media(min-width:600px){.app{padding-top:24px}.stage{aspect-ratio:16/13}.wheel-area{top:49%;width:min(48vw,430px);height:min(48vw,430px);max-height:80%}.song{bottom:24px}}
+.editor{margin-top:14px;padding:15px;border:1px solid #293542;border-radius:18px;background:#151d27}
+.editor h2{font-size:15px;margin:0 0 12px}.editor-row{display:flex;gap:9px;flex-wrap:wrap;align-items:center}.editor label{font-size:12px;color:#b9c3ce}.editor select,.editor input{min-width:105px;flex:1}.editor button{white-space:nowrap}.editor-note{font-size:11px;color:#91a4b5;margin-top:9px;line-height:1.5}
+@media(max-width:640px){.app{padding:10px}.stage{aspect-ratio:4/5;min-height:560px}.camera-hint{right:18px}.wheel-area{left:50%;top:56%;width:min(88vw,440px);height:min(88vw,440px);max-width:90%;max-height:70%}.song{left:12px;right:12px;bottom:12px;font-size:22px}.panel{grid-template-columns:1fr 1fr}.editor-row>*{min-width:calc(50% - 8px)!important}}
 </style></head>
 <body><main class="app">
 <header><div><div class="brand">CHORD / GESTURE</div><div class="sub">손끝으로 고르는 나만의 코드 휠</div></div><div class="badge" id="camBadge">CAMERA OFF</div></header>
@@ -47,12 +49,23 @@ select{padding:9px 11px}
 <div class="controls"><button class="primary" id="cameraBtn">카메라 켜기</button><button id="playBtn">선택 코드 재생</button><button id="stopBtn">카메라 끄기</button></div>
 <div class="panel"><div class="info"><div class="kicker">SELECTED CHORD</div><div class="value" id="chordName">C</div><div class="notes" id="chordNotes">C · E · G</div></div><div class="info"><div class="kicker">HAND POSITION</div><div class="value" id="handState">대기 중</div><div class="notes" id="handHelp">검지 끝을 휠 위로 이동</div></div></div>
 <div class="options"><label for="sound">SOUND</label><select id="sound"><option value="soft">Soft keys</option><option value="pluck">Pluck</option><option value="organ">Organ</option></select><label for="vol">VOLUME</label><input id="vol" type="range" min="0" max="100" value="45"></div>
+<section class="editor" aria-label="코드 편집기">
+<h2>코드 만들기 / 조성 변경</h2>
+<div class="editor-row">
+<label for="rootNote">근음</label><select id="rootNote"><option>C</option><option>C♯</option><option>D</option><option>D♯</option><option>E</option><option>F</option><option>F♯</option><option>G</option><option>G♯</option><option>A</option><option>A♯</option><option>B</option></select>
+<label for="quality">종류</label><select id="quality"><option value="maj">Major</option><option value="min">Minor</option><option value="7">Dominant 7</option><option value="maj7">Major 7</option><option value="min7">Minor 7</option><option value="sus2">sus2</option><option value="sus4">sus4</option><option value="dim">Diminished</option><option value="aug">Augmented</option><option value="add9">add9</option></select>
+<button class="primary" id="addChordBtn">코드 추가</button>
+</div>
+<div class="editor-row" style="margin-top:10px"><label for="manualNotes">직접 음 입력</label><input id="manualNotes" placeholder="예: C4, E4, G4"><button id="manualChordBtn">입력한 음으로 만들기</button></div>
+<div class="editor-row" style="margin-top:10px"><label for="keyShift">전체 조성 이동</label><select id="keyShift"><option value="0">원래 조성</option><option value="1">+1 반음</option><option value="2">+2 반음</option><option value="3">+3 반음</option><option value="4">+4 반음</option><option value="5">+5 반음</option><option value="-1">-1 반음</option><option value="-2">-2 반음</option><option value="-3">-3 반음</option><option value="-4">-4 반음</option><option value="-5">-5 반음</option></select></div>
+<p class="editor-note">추가한 코드는 이 기기의 브라우저에 저장됩니다. 조성 이동은 현재 휠의 모든 코드를 함께 옮깁니다. 직접 음 편집은 다음 확장 단계에서 코드별 음 입력 기능으로 연결할 수 있습니다.</p>
+</section>
 <p class="help">휠의 코드 이름을 누르면 바로 선택할 수 있어요. 카메라를 켜면 검지 손끝의 위치로 휠을 조작합니다. 검지 손끝을 가운데에서 바깥쪽으로 움직여 원하는 코드 방향에 놓아보세요. 코드는 선택할 때마다 소리로 확인할 수 있습니다.</p>
 </main>
 <script type="module">
 import {FilesetResolver,HandLandmarker} from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/+esm";
 const $=id=>document.getElementById(id),svg=$("wheel"),video=$("video");
-const data=[
+let data=[
 {name:"C",notes:"C · E · G",midi:[60,64,67]},
 {name:"Cadd9",notes:"C · D · E · G",midi:[60,62,64,67]},
 {name:"B7",notes:"B · D♯ · F♯ · A",midi:[59,63,66,69]},
@@ -62,10 +75,19 @@ const data=[
 {name:"D",notes:"D · F♯ · A",midi:[62,66,69]},
 {name:"Am",notes:"A · C · E",midi:[57,60,64]}
 ];
+const baseData=data.map(d=>({...d,midi:[...d.midi]}));
 let selected=0,ac=null,stream=null,tracker=null,lastChange=0,lastFrame=0;
 const cx=200,cy=200,r=178,inner=42,step=Math.PI*2/data.length;
 function polar(rad,a){return [cx+rad*Math.cos(a),cy+rad*Math.sin(a)]}
 function sectorPath(a0,a1){const p1=polar(r,a0),p2=polar(r,a1),q1=polar(inner,a1),q2=polar(inner,a0);return `M${p1} A${r},${r} 0 0 1 ${p2} L${q1} A${inner},${inner} 0 0 0 ${q2} Z`}
+const NOTE_NAMES=["C","C♯","D","D♯","E","F","F♯","G","G♯","A","A♯","B"];
+const QUALITY={maj:[0,4,7],min:[0,3,7],"7":[0,4,7,10],maj7:[0,4,7,11],min7:[0,3,7,10],sus2:[0,2,7],sus4:[0,5,7],dim:[0,3,6],aug:[0,4,8],add9:[0,2,4,7]};
+function noteName(m){return NOTE_NAMES[((m%12)+12)%12]}
+function chordFromEditor(){const root=NOTE_NAMES.indexOf($("rootNote").value),q=$("quality").value,intervals=QUALITY[q],base=48+root,midi=intervals.map(n=>base+n);const suffix={maj:"",min:"m","7":"7",maj7:"maj7",min7:"m7",sus2:"sus2",sus4:"sus4",dim:"dim",aug:"aug",add9:"add9"}[q];return {name:NOTE_NAMES[root]+suffix,notes:midi.map(noteName).join(" · "),midi,custom:true}}
+function parseManualNotes(){const raw=$("manualNotes").value.split(/[ ,·]+/).map(x=>x.trim()).filter(Boolean);const map={C:0,"C#":1,"C♯":1,Db:1,"D♭":1,D:2,"D#":3,"D♯":3,Eb:3,"E♭":3,E:4,F:5,"F#":6,"F♯":6,Gb:6,"G♭":6,G:7,"G#":8,"G♯":8,Ab:8,"A♭":8,A:9,"A#":10,"A♯":10,Bb:10,"B♭":10,B:11};const midi=raw.map(token=>{const m=token.match(/^([A-Ga-g](?:#|♯|b|♭)?)(-?\d)$/);if(!m)throw new Error("각 음을 C4, E4처럼 입력해 주세요.");const n=map[m[1].replace(/[a-g]/,x=>x.toUpperCase())];if(n===undefined)throw new Error("인식할 수 없는 음: "+m[1]);return (Number(m[2])+1)*12+n;});if(midi.length<2)throw new Error("두 개 이상의 음을 입력해 주세요.");return midi.sort((a,b)=>a-b)}
+function addManualChord(){try{const midi=parseManualNotes(),name=$("rootNote").value+" custom";const d={name,notes:midi.map(noteName).join(" · "),midi,custom:true};data.push(d);try{localStorage.setItem("sonkkeut-custom",JSON.stringify(data.filter(x=>x.custom)))}catch(e){}choose(data.length-1,false)}catch(e){alert(e.message)}}
+function addChord(){const d=chordFromEditor();const old=data.findIndex(x=>x.name===d.name);if(old>=0){data[old]=d;choose(old,false)}else{data.push(d);choose(data.length-1,false)}try{localStorage.setItem("sonkkeut-custom",JSON.stringify(data.filter(x=>x.custom)))}catch(e){}buildWheel()}
+function applyShift(n){data=baseData.map(d=>({...d,midi:d.midi.map(m=>m+n),notes:d.midi.map(m=>noteName(m+n)).join(" · ")}));const saved=(()=>{try{return JSON.parse(localStorage.getItem("sonkkeut-custom")||"[]")}catch(e){return []}})();saved.forEach(d=>data.push({...d,midi:d.midi.map(m=>m+n),notes:d.midi.map(m=>noteName(m+n)).join(" · ")}));if(selected>=data.length)selected=0;choose(selected,false)}
 function buildWheel(){svg.innerHTML="";data.forEach((d,i)=>{const a0=-Math.PI/2+i*step-step/2,a1=a0+step,mid=(a0+a1)/2;const path=document.createElementNS("http://www.w3.org/2000/svg","path");path.setAttribute("d",sectorPath(a0,a1));path.setAttribute("class","segment"+(i===selected?" active":""));path.addEventListener("click",()=>choose(i,true));svg.append(path);const [x,y]=polar(125,mid);const t=document.createElementNS("http://www.w3.org/2000/svg","text");t.setAttribute("x",x);t.setAttribute("y",y);t.setAttribute("class","chord-label"+(i===selected?" active":""));t.textContent=d.name;t.addEventListener("click",()=>choose(i,true));svg.append(t);});const c=document.createElementNS("http://www.w3.org/2000/svg","circle");c.setAttribute("cx",cx);c.setAttribute("cy",cy);c.setAttribute("r",inner-4);c.setAttribute("class","center");c.addEventListener("click",()=>play());svg.append(c);const ct=document.createElementNS("http://www.w3.org/2000/svg","text");ct.setAttribute("x",cx);ct.setAttribute("y",cy);ct.setAttribute("class","center-text");ct.textContent="PLAY";ct.addEventListener("click",play);svg.append(ct)}
 function choose(i,sound=false){selected=(i+data.length)%data.length;const d=data[selected];$("chordName").textContent=d.name;$("chordNotes").textContent=d.notes;$("songTitle").textContent=d.name;buildWheel();if(sound)play();$("handState").textContent="선택됨";$("handHelp").textContent="검지 위치로 코드 선택"}
 function context(){if(!ac)ac=new(window.AudioContext||window.webkitAudioContext)();if(ac.state==="suspended")ac.resume();return ac}
@@ -74,5 +96,6 @@ function angleIndex(x,y){let a=Math.atan2(y-cy,x-cx)+Math.PI/2;if(a<0)a+=Math.PI
 async function startCamera(){try{$("cameraBtn").disabled=true;$("hint").textContent="손 인식 기능을 불러오는 중…";const vision=await FilesetResolver.forVisionTasks("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/wasm");tracker=await HandLandmarker.createFromOptions(vision,{baseOptions:{modelAssetPath:"https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task",delegate:"GPU"},runningMode:"VIDEO",numHands:1});stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:"user",width:{ideal:640},height:{ideal:800}},audio:false});video.srcObject=stream;await video.play();video.style.display="block";$("camBadge").textContent="CAMERA ON";$("hint").textContent="검지 손끝을 휠 위로 움직여 코드 선택";requestAnimationFrame(loop)}catch(e){$("cameraBtn").disabled=false;$("hint").textContent="카메라를 시작하지 못했어요. HTTPS와 카메라 권한을 확인하세요.";}}
 function loop(t){if(!stream)return;if(video.readyState>=2&&t-lastFrame>50){lastFrame=t;const out=tracker.detectForVideo(video,t);if(out.landmarks?.length){const p=out.landmarks[0][8];const stage=$("stage").getBoundingClientRect(),wheel=$("wheelArea").getBoundingClientRect();const px=(1-p.x)*video.videoWidth,py=p.y*video.videoHeight;const sx=stage.width*(1-p.x),sy=stage.height*p.y;const localX=(sx-(wheel.left-stage.left))/wheel.width*400,localY=(sy-(wheel.top-stage.top))/wheel.height*400;const dist=Math.hypot(localX-cx,localY-cy);if(dist>50&&dist<210){const idx=angleIndex(localX,localY);$("handState").textContent="코드 "+data[idx].name;if(idx!==selected&&Date.now()-lastChange>450){lastChange=Date.now();choose(idx,true)}}}else{$("handState").textContent="손을 찾는 중"}}requestAnimationFrame(loop)}
 function stop(){if(stream){stream.getTracks().forEach(t=>t.stop());stream=null}video.srcObject=null;video.style.display="none";$("camBadge").textContent="CAMERA OFF";$("cameraBtn").disabled=false;$("hint").textContent="카메라를 켜거나 휠을 터치해 코드를 선택하세요";$("handState").textContent="대기 중"}
-$("cameraBtn").addEventListener("click",startCamera);$("stopBtn").addEventListener("click",stop);$("playBtn").addEventListener("click",play);buildWheel();choose(0,false);window.addEventListener("pagehide",stop);
+$("addChordBtn").addEventListener("click",addChord);$("manualChordBtn").addEventListener("click",addManualChord);$("keyShift").addEventListener("change",e=>applyShift(Number(e.target.value)));$("cameraBtn").addEventListener("click",startCamera);$("stopBtn").addEventListener("click",stop);$("playBtn").addEventListener("click",play);try{const saved=JSON.parse(localStorage.getItem("sonkkeut-custom")||"[]");if(Array.isArray(saved))saved.forEach(d=>{if(d&&d.name&&Array.isArray(d.midi))data.push(d)})}catch(e){}
+buildWheel();choose(0,false);if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}))}window.addEventListener("pagehide",stop);
 </script></body></html>
